@@ -1,0 +1,13 @@
+db_master:
+  image: wnameless/oracle-xe-11g
+  ports:
+    - "49822:22"
+    - "49821:1521"
+  links:
+    - db_standby
+
+db_standby:
+  image: wnameless/oracle-xe-11g
+  ports:
+    - "49922:22"
+    - "49921:1521"
