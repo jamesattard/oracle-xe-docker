@@ -1,8 +1,11 @@
 #Instructions to setup two oracle XE 11g instances setup as Master Standby replication configured on two Docker containers.
 
+
 #Start containers
+````bash
 docker-compose up -d
 docker-compose ps
+```
 
 #Connect to master
 ````bash
@@ -18,6 +21,60 @@ ssh root@oraclexe_db_standby_1
 - Exchange SSH keys between master and standby
 - Install rsync (apt-get install rsync) on both servers
 
+
+# SEMI-AUTOMATIC DEPLOYMENT:
+## DEVELOPMENT PURPOSES ONLY!
+###Docker Host
+````bash
+scp -P49522 step_1_master_prep.sh step_3_master_xferfiles.sh ship_logs.sh switch_log.sql root@localhost:/tmp
+scp -P49622 step_2_standby_prep.sh step_4_standby_startup_standby.sh apply_logs.sh root@localhost:/tmp
+```
+
+###Master
+````bash
+ssh root@localhost -p 49522
+cd /tmp
+./step_1_master_prep.sh
+```
+
+###Slave
+````bash
+ssh root@localhost -p 49622
+cd /tmp
+./step_2_standby_prep.sh
+```
+
+###Master
+````bash
+ssh root@localhost -p 49522
+cd /tmp
+./step_3_master_xferfiles.sh
+```
+
+###Slave
+````bash
+ssh root@localhost -p 49622
+cd /tmp
+./step_4_standby_startup_standby.sh
+```
+
+###Master
+````bash
+ssh root@localhost -p 49522
+su - oracle
+cd /tmp
+./ship_logs.sh
+```
+
+###Slave
+````bash
+ssh root@localhost -p 49622
+su - oracle
+cd /tmp
+./apply_logs.sh
+```
+
+# MANUAL INSTRUCTIONS:
 
 ##Enable archivelog mode in master
 ````bash

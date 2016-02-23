@@ -1,0 +1,119 @@
+echo "Installing Files"
+apt-get install rsync -y
+
+
+echo "Generating SSH keys"
+
+mkdir /root/.ssh
+cat >/root/.ssh/id_rsa <<EOL
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAwAHi2lgn5e3qVb5HyldOLk+loqqiGU6ebGYQnucNdA/dme3Z
+L8/jugOAlTJ72rP3QP5u4WuxWiixMasevYT8xoiSdOM7VKjBoBMaD51+5DAMtXHA
+T6jPG5Bxd2yTjlCXKx91Anju3bnTi63RWN2+ALe33T6mx3l8M8JaYjC0XR37hDjf
+Agmp1Ucu/gSnNS8geo3lTHu+QfUDLlrcHB4FKQMj1KRUiZL55LMBChDRAb6Hg2P0
+fzeTZH0F9tlvAsG3Q6ayyVH5H9KkEpEm3zZNHOTkmHiWmt5XXiPbuEPF74NBTInd
+WMEwku+5DKXKTxcI49ru+sxAQrdmCp45NF7ptwIDAQABAoIBAQCsMkTX2s3VaJyL
+Tz4lGk1UPTvn+a2skpSD1Lk9OSwYlY4A2Y25UnECRtfPdlobVuD9GfIpGiMRH4Ni
+bvv/rb/g8WSfjZaNI1ebDuaFcJL3ZJxRMXXuOw+awdzw5KAktuQL2Ydfs0NN+LTf
+BQDF+P/ItvsfYWvDY5Fe/gN/IfzvsD5MaTZdGOcVAyTZKzgNHkEUo6KOYQeD1BqS
+2ZRb1wmEyuIZkGwgQDEMWwYJ2xuX1kiw+E8ajDtcIqV/SjeSNwIOFy2XcIi5FAdc
+QQ5RrnO2wVELb63P2hQHKbrF65ddwGf/NEEs8+DI5V3WuO05T3WJLl54CmIT4Oz+
+yae7W1bJAoGBAPrCGHpDO0tjwjJs7wbFsX5zJYKLE9MwmDKkKoAM1650v6z5Ic4T
+Ku0/5yJmizR5/MegiOESUzKl7US5gdY6hA/YWM5YWgwiXS2lY9K8dWJofRjsI/iV
+xwO7h4LgNurGs4hlsXS0WpZFjrG6Xb+FiBF3bWC37C4XL5cSqdmgfT8DAoGBAMQF
+ZGBqHoG3JIT+4UafKDOSUUzeWuHlQ4qtIPmIyQ6kQCirEsnHlsZfYGk/UQY/32Zv
+KZkjaofUcsh1BV4/9ePaQxHxBJvIHw8Mscr2O1Dj8BrR2c9rMOl3cGvRhQRXDkUK
+UPK6Bq0h6fTgBav9vWbzOI3UB8oDnsRxPfEAjaI9AoGASEvToNRncQn3AHDVzV8M
+GIf8RZHxik8VYmxgcIDDYmH4rVc6vt5Z3wMwkYN9GQkerzOCo1mUMSMTsF/HpktC
+rgrTN9LTS3JQ6QspJ6X8Nf4oKxpSGKaeNV5I6JvaWYAmXOns6tfg0jiFtooj40cN
+fvOuzlbYukUnDGhuHfeehJ8CgYAN8axAR4xAAf0xEMiJs4yyjngGFdM1Oo/hb4tm
+9NoIlpqRygmeHPqWxfYfxodHAIgtyz6UTDapzu0TYW+uUrJ1MPOQdSq0wjmjYm3L
+WFTD3lMYNVFfNerW0M5IfTEPK/ox4xf7DEypSD5SUxVUNMqiZi7ht/GN51AF/WBA
+op9wqQKBgFU67cchH5H0yMJWbiT3Bvz6q5xYe8EFQ0hWWS15Not71TQ3QOiiFNwO
+45FhJNoJas04zWs7aWqVxOmOoCauLvKg41RDNhrLrEoEGEokJBmOM4TnNKxckcz8
+nlNp8XneDNVfWudC4vOONSlzuznbONVjRvjBn5bllLJO4b5ka48v
+-----END RSA PRIVATE KEY-----
+EOL
+
+mkdir /u01/app/oracle/.ssh
+cat >/u01/app/oracle/.ssh/id_rsa <<EOL
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAwAHi2lgn5e3qVb5HyldOLk+loqqiGU6ebGYQnucNdA/dme3Z
+L8/jugOAlTJ72rP3QP5u4WuxWiixMasevYT8xoiSdOM7VKjBoBMaD51+5DAMtXHA
+T6jPG5Bxd2yTjlCXKx91Anju3bnTi63RWN2+ALe33T6mx3l8M8JaYjC0XR37hDjf
+Agmp1Ucu/gSnNS8geo3lTHu+QfUDLlrcHB4FKQMj1KRUiZL55LMBChDRAb6Hg2P0
+fzeTZH0F9tlvAsG3Q6ayyVH5H9KkEpEm3zZNHOTkmHiWmt5XXiPbuEPF74NBTInd
+WMEwku+5DKXKTxcI49ru+sxAQrdmCp45NF7ptwIDAQABAoIBAQCsMkTX2s3VaJyL
+Tz4lGk1UPTvn+a2skpSD1Lk9OSwYlY4A2Y25UnECRtfPdlobVuD9GfIpGiMRH4Ni
+bvv/rb/g8WSfjZaNI1ebDuaFcJL3ZJxRMXXuOw+awdzw5KAktuQL2Ydfs0NN+LTf
+BQDF+P/ItvsfYWvDY5Fe/gN/IfzvsD5MaTZdGOcVAyTZKzgNHkEUo6KOYQeD1BqS
+2ZRb1wmEyuIZkGwgQDEMWwYJ2xuX1kiw+E8ajDtcIqV/SjeSNwIOFy2XcIi5FAdc
+QQ5RrnO2wVELb63P2hQHKbrF65ddwGf/NEEs8+DI5V3WuO05T3WJLl54CmIT4Oz+
+yae7W1bJAoGBAPrCGHpDO0tjwjJs7wbFsX5zJYKLE9MwmDKkKoAM1650v6z5Ic4T
+Ku0/5yJmizR5/MegiOESUzKl7US5gdY6hA/YWM5YWgwiXS2lY9K8dWJofRjsI/iV
+xwO7h4LgNurGs4hlsXS0WpZFjrG6Xb+FiBF3bWC37C4XL5cSqdmgfT8DAoGBAMQF
+ZGBqHoG3JIT+4UafKDOSUUzeWuHlQ4qtIPmIyQ6kQCirEsnHlsZfYGk/UQY/32Zv
+KZkjaofUcsh1BV4/9ePaQxHxBJvIHw8Mscr2O1Dj8BrR2c9rMOl3cGvRhQRXDkUK
+UPK6Bq0h6fTgBav9vWbzOI3UB8oDnsRxPfEAjaI9AoGASEvToNRncQn3AHDVzV8M
+GIf8RZHxik8VYmxgcIDDYmH4rVc6vt5Z3wMwkYN9GQkerzOCo1mUMSMTsF/HpktC
+rgrTN9LTS3JQ6QspJ6X8Nf4oKxpSGKaeNV5I6JvaWYAmXOns6tfg0jiFtooj40cN
+fvOuzlbYukUnDGhuHfeehJ8CgYAN8axAR4xAAf0xEMiJs4yyjngGFdM1Oo/hb4tm
+9NoIlpqRygmeHPqWxfYfxodHAIgtyz6UTDapzu0TYW+uUrJ1MPOQdSq0wjmjYm3L
+WFTD3lMYNVFfNerW0M5IfTEPK/ox4xf7DEypSD5SUxVUNMqiZi7ht/GN51AF/WBA
+op9wqQKBgFU67cchH5H0yMJWbiT3Bvz6q5xYe8EFQ0hWWS15Not71TQ3QOiiFNwO
+45FhJNoJas04zWs7aWqVxOmOoCauLvKg41RDNhrLrEoEGEokJBmOM4TnNKxckcz8
+nlNp8XneDNVfWudC4vOONSlzuznbONVjRvjBn5bllLJO4b5ka48v
+-----END RSA PRIVATE KEY-----
+EOL
+
+cat >/root/.ssh/id_rsa.pub <<EOL
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAAeLaWCfl7epVvkfKV04uT6WiqqIZTp5sZhCe5w10D92Z7dkvz+O6A4CVMnvas/dA/m7ha7FaKLExqx69hPzGiJJ04ztUqMGgExoPnX7kMAy1ccBPqM8bkHF3bJOOUJcrH3UCeO7dudOLrdFY3b4At7fdPqbHeXwzwlpiMLRdHfuEON8CCanVRy7+BKc1LyB6jeVMe75B9QMuWtwcHgUpAyPUpFSJkvnkswEKENEBvoeDY/R/N5NkfQX22W8CwbdDprLJUfkf0qQSkSbfNk0c5OSYeJaa3ldeI9u4Q8Xvg0FMid1YwTCS77kMpcpPFwjj2u76zEBCt2YKnjk0Xum3 oracle@ada530e07737
+EOL
+
+cat >/u01/app/oracle/.ssh/id_rsa.pub <<EOL
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAAeLaWCfl7epVvkfKV04uT6WiqqIZTp5sZhCe5w10D92Z7dkvz+O6A4CVMnvas/dA/m7ha7FaKLExqx69hPzGiJJ04ztUqMGgExoPnX7kMAy1ccBPqM8bkHF3bJOOUJcrH3UCeO7dudOLrdFY3b4At7fdPqbHeXwzwlpiMLRdHfuEON8CCanVRy7+BKc1LyB6jeVMe75B9QMuWtwcHgUpAyPUpFSJkvnkswEKENEBvoeDY/R/N5NkfQX22W8CwbdDprLJUfkf0qQSkSbfNk0c5OSYeJaa3ldeI9u4Q8Xvg0FMid1YwTCS77kMpcpPFwjj2u76zEBCt2YKnjk0Xum3 oracle@ada530e07737
+EOL
+
+chmod 700 /root/.ssh
+chmod 600 /root/.ssh/id_rsa
+chmod 644 /root/.ssh/id_rsa.pub
+
+chown -R oracle:dba /u01/app/oracle/.ssh
+chmod 700 /u01/app/oracle/.ssh
+chmod 600 /u01/app/oracle/.ssh/id_rsa
+chmod 644 /u01/app/oracle/.ssh/id_rsa.pub
+
+
+echo "Enable archivelog mode"
+sqlplus sys/oracle as sysdba << EOL
+shutdown immediate;
+startup mount;
+alter database archivelog;
+alter database open;
+EOL
+
+
+echo "Pointing database to new archivelog location"
+mkdir /archivelog
+chown oracle:dba /archivelog/
+sqlplus sys/oracle as sysdba << EOL
+alter system set db_recovery_file_dest='/archivelog' scope=both;
+EOL
+
+
+echo "Taking cold backup"
+sqlplus sys/oracle as sysdba << EOL
+shutdown immediate;
+create pfile='/archivelog/initXE.ora' from spfile;
+EOL
+pushd /u01/app/oracle/oradata/XE/
+tar zcvf masterdata.tgz *.dbf
+mv masterdata.tgz /archivelog/
+popd
+
+echo "Create standby controlfile"
+sqlplus sys/oracle as sysdba << EOL
+startup;
+alter database create standby controlfile as '/archivelog/stbycf.ctl';
+EOL
+
