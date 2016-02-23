@@ -20,7 +20,7 @@ ssh root@oraclexe_db_standby_1
 #Prerequisites
 - Exchange SSH keys between master and standby
 - Install rsync (apt-get install rsync) on both servers
-
+- Amend STANDBY variable inside step_3_master_xferfiles.sh and ship_logs.sh to reflect name of your standby container
 
 # SEMI-AUTOMATIC DEPLOYMENT:
 ## DEVELOPMENT PURPOSES ONLY!
