@@ -92,4 +92,4 @@ And we now have a standby database too!
 ./apply_logs.sh
 ```
 
-Check out the demo movie [a link]https://vimeo.com/156291617) to see this working in action.
+Check out the demo movie https://vimeo.com/156291617 to see this working in action.
