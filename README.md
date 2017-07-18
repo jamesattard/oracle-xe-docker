@@ -2,18 +2,18 @@
 
 
 #Start containers
-````bash
+```sh
 docker-compose up -d
 docker-compose ps
 ```
 
 #Connect to master
-````bash
+```sh
 ssh root@localhost -p 49822
 ```
 
 #Connect to slave (from master)
-````bash
+```sh
 ssh root@oraclexe_db_standby_1
 ```
 
@@ -25,41 +25,41 @@ ssh root@oraclexe_db_standby_1
 # SEMI-AUTOMATIC DEPLOYMENT:
 ## DEVELOPMENT PURPOSES ONLY!
 ###Docker Host
-````bash
+```sh
 scp -P49522 step_1_master_prep.sh step_3_master_xferfiles.sh ship_logs.sh switch_log.sql root@localhost:/tmp
 scp -P49622 step_2_standby_prep.sh step_4_standby_startup_standby.sh apply_logs.sh root@localhost:/tmp
 ```
 
 ###Master
-````bash
+```sh
 ssh root@localhost -p 49522
 cd /tmp
 ./step_1_master_prep.sh
 ```
 
 ###Slave
-````bash
+```sh
 ssh root@localhost -p 49622
 cd /tmp
 ./step_2_standby_prep.sh
 ```
 
 ###Master
-````bash
+```sh
 ssh root@localhost -p 49522
 cd /tmp
 ./step_3_master_xferfiles.sh
 ```
 
 ###Slave
-````bash
+```sh
 ssh root@localhost -p 49622
 cd /tmp
 ./step_4_standby_startup_standby.sh
 ```
 
 ###Master
-````bash
+```sh
 ssh root@localhost -p 49522
 su - oracle
 cd /tmp
@@ -67,7 +67,7 @@ cd /tmp
 ```
 
 ###Slave
-````bash
+```sh
 ssh root@localhost -p 49622
 su - oracle
 cd /tmp
@@ -77,7 +77,7 @@ cd /tmp
 # MANUAL INSTRUCTIONS:
 
 ##Enable archivelog mode in master
-````bash
+```sh
 sqlplus sys/oracle as sysdba
 shutdown immediate;
 startup mount;
@@ -86,7 +86,7 @@ alter database open;
 ```
 
 ##Create archivelog location (master)
-````bash
+```sh
 mkdir /archivelog
 chown oracle:dba /archivelog/
 sqlplus sys/oracle as sysdba
@@ -94,19 +94,19 @@ alter system set db_recovery_file_dest='/archivelog' scope=both;
 ```
 
 ##Take cold backup of Master database
-````bash
+```sh
 shutdown immediate;
 create pfile=‘/archivelog/initXE.ora’ from spfile;
 pushd /u01/app/oracle/oradata/XE/ ; tar zcvf masterdata.tgz *.dbf; popd
 ```
 
 ##Create standby control file from Master database
-````bash
+```sh
 alter database create standby controlfile as '/archivelog/stbycf.ctl';
 ```
 
 ##Prep standby server
-````bash
+```sh
 mkdir /archivelog
 chown oracle:dba /archivelog/
 shutdown immediate;
@@ -117,21 +117,21 @@ popd
 ```
 
 ##Transfer files to standby server
-````bash
+```sh
 scp /archivelog/masterdata.tgz root@oraclexe_db_standby_1:/u01/app/oracle/oradata/XE/
 scp stbycf.ctl root@oraclexe_db_standby_1:/u01/app/oracle/oradata/XE/
 scp initXE.ora root@oraclexe_db_standby_1:/archivelog/
 ```
 
 ##Last tidbits on standby server
-````bash
+```sh
 chown -R oracle:dba /u01/app/oracle/oradata/XE/
 chown -R oracle:dba /archivelog/
 ```
 Amend pfile (/archivelog/initXE.ora/) to reflect standby controlfile (/u01/app/oracle/oradata/XE/stbycf.ctl)
 
 ##Startup standby database from pfile
-````bash
+```sh
 startup nomount pfile='/archivelog/initXE.ora';
 alter database mount standby database;
 ```
@@ -140,13 +140,13 @@ And we now have a standby database too!
 
 
 ##Ship logs (master)
-````bash
+```sh
 ./ship_logs.sh
 ```
 
 ##Apply logs (standby)
-````bash
+```sh
 ./apply_logs.sh
 ```
 
-Check out the demo movie https://vimeo.com/156291617 to see this working in action.
+Check out the demo [movie](https://vimeo.com/156291617) to see this working in action.
