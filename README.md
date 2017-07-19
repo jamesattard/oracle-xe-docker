@@ -1,4 +1,5 @@
-# Instructions to setup two oracle XE 11g instances setup as Master Standby replication configured on two Docker containers.
+# Introduction
+These are all the instructions needed to setup two oracle XE 11g instances setup as Master Standby replication configured on two Docker containers.
 
 
 # Start containers
@@ -24,7 +25,7 @@ ssh root@oraclexe_db_standby_1
 
 # SEMI-AUTOMATIC DEPLOYMENT:
 ## DEVELOPMENT PURPOSES ONLY!
-###Docker Host
+### Docker Host
 ```sh
 scp -P49522 step_1_master_prep.sh step_3_master_xferfiles.sh ship_logs.sh switch_log.sql root@localhost:/tmp
 scp -P49622 step_2_standby_prep.sh step_4_standby_startup_standby.sh apply_logs.sh root@localhost:/tmp
