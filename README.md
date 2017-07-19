@@ -33,35 +33,35 @@ scp -P49522 step_1_master_prep.sh step_3_master_xferfiles.sh ship_logs.sh switch
 scp -P49622 step_2_standby_prep.sh step_4_standby_startup_standby.sh apply_logs.sh root@localhost:/tmp
 ```
 
-### 4.1.2 Master
+### 4.1.2 Configure Master Node
 ```sh
 ssh root@localhost -p 49522
 cd /tmp
 ./step_1_master_prep.sh
 ```
 
-### 4.1.3 Slave
+### 4.1.3 Configure Standby Node
 ```sh
 ssh root@localhost -p 49622
 cd /tmp
 ./step_2_standby_prep.sh
 ```
 
-### 4.1.4 Master
+### 4.1.4 Copy files to Master
 ```sh
 ssh root@localhost -p 49522
 cd /tmp
 ./step_3_master_xferfiles.sh
 ```
 
-### 4.1.5 Slave
+### 4.1.5 Copy files to Standby
 ```sh
 ssh root@localhost -p 49622
 cd /tmp
 ./step_4_standby_startup_standby.sh
 ```
 
-### 4.1.6 Master
+### 4.1.6 Ship Logs from Master to Standby
 ```sh
 ssh root@localhost -p 49522
 su - oracle
@@ -69,7 +69,7 @@ cd /tmp
 ./ship_logs.sh
 ```
 
-### 4.1.7 Slave
+### 4.1.7 Apply Logs on Standby
 ```sh
 ssh root@localhost -p 49622
 su - oracle
